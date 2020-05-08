@@ -1,6 +1,4 @@
-# Hello Vanilla JS
-
-A template project for [Vanilla JS](http://vanilla-js.com/).
+# 掃除管理システム
 
 
 ```

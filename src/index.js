@@ -1,17 +1,27 @@
+import './style.css';
+import './garbage.png';
+
 const initialize = () => {
-    const button = document.createElement('button');
-    const response = document.createElement('pre');
-    const onClick = async () => {
-        response.innerText = await userAgent();
+    const date = document.getElementById('date');
+    const today = new Date();
+    
+    for (let i = 0; i < 10; i++) {
+        const d = new Date(today.getTime() + (i - 7) * 24 * 60 * 60 * 1000 /* + (i - 7)日 */);
+        const option = document.createElement('option');
+        option.text = d.toLocaleDateString();
+        if (d.getTime() === today.getTime()) {
+            option.selected = true;
+        }
+        date.appendChild(option);
+    }
+
+    const button = document.getElementById('register');
+    const onClick = () => {
+        alert(date.value + ' 登録!');
     };
-    button.innerText = 'Check User-Agent';
+
     button.addEventListener('click', onClick);
-    document.body.appendChild(button);
-    document.body.appendChild(response);
 };
 
-const userAgent = () => fetch('https://httpbin.org/user-agent')
-    .then(res => res.json())
-    .then(data => data['user-agent']);
 
 document.addEventListener('DOMContentLoaded', initialize);

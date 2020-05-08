@@ -1,12 +1,67 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Vanilla Webpack App</title>
-</head>
-<body>
-<script src="bundle.js"></script>
-</body>
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>一覧画面</title>
+	</head>
+
+	<body>
+
+		<header>
+			<h1>一覧画面</h1>
+		</header>
+
+
+		<table>
+			<thead>
+                    <tr>
+                        <th class="place">場所</th>
+						<th class="last_date">最終掃除日</th>
+						<th>
+							<select id="date">
+							</select>
+						</th>
+						<th class="cycle">周期</th>
+						<th class="delete"><img src="./garbage.png" alt="ゴミ箱"></a></th>
+                    </tr>
+            </thead>
+
+            <tbody>
+                    <tr>
+                        <td>洗面所</td>
+						<td>2020/3/20</td>
+						<td><input type="checkbox" id="update" name="update_date"></td>
+						<td>2週間</td>
+						<td><input type="checkbox" id="delete" name="delete"></td>
+                    </tr>
+                    <tr>
+                        <td>キッチン</td>
+						<td>2020/4/1</td>
+						<td><input type="checkbox" id="update" name="update_date"></td>
+						<td>2週間</td>
+						<td><input type="checkbox" id="delete" name="delete"></td>
+                    </tr>   
+                    <tr>
+                        <td>トイレ</td>
+						<td>2020/4/15</td>
+						<td><input type="checkbox" id="update" name="update_date"></td>
+						<td>1週間</td>
+						<td><input type="checkbox" id="delete" name="delete"></td>
+                    </tr>   
+                    <tr>
+                        <td>床</td>
+						<td>2020/3/11</td>
+						<td><input type="checkbox" id="update" name="update_date"></td>
+						<td>2日</td>
+						<td><input type="checkbox" id="delete" name="delete"></td>
+                    </tr>              
+            </tbody>
+        </table>
+
+		<p class="submit_botton">
+			<a href="#" id="register">登録</a>
+		</p>
+	</body>
 </html>
