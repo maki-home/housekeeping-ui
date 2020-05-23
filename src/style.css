@@ -35,14 +35,20 @@ th{
     border-top: 1px solid gray;
     border-right: 1px solid gray;
     border-left: 1px solid gray;
-    border-bottom: 1px dotted gray;
+    border-bottom: 2px dotted gray;
     margin: 0;
     padding: 1px;
     background-color: #b0e0e6;
 }
 
+th:last-child{
+    padding-top: 4px;
+}
+
 td{
-    border: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
     padding: 1px;
 }
 
