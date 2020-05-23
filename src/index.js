@@ -31,7 +31,7 @@ const initialize = () => {
         }
     ];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
         const d = new Date(today.getTime() + (i - 7) * 24 * 60 * 60 * 1000 /* + (i - 7)日 */);
         const option = document.createElement('option');
         option.text = d.toLocaleDateString();
@@ -52,12 +52,17 @@ const initialize = () => {
         } else {
             cycle = d.cycle + '日間';
         }
-        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate}</td><td><input type="checkbox" name="finished"></td><td>${cycle}</td><td><input type="checkbox" name="remove"></td>`;
+        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate}</td><td><input type="checkbox" name="finished" data-id="${d.id}"></td><td>${cycle}</td><td><input type="checkbox" name="remove"></td>`;
     });
 
     const button = document.getElementById('register');
     const onClick = () => {
-        alert(date.value + ' 登録!');
+        const checked = document.querySelectorAll("input[name=finished]:checked");
+        const ids = [];
+        checked.forEach(c => {
+            ids.push(c.dataset.id);
+        });
+        alert(JSON.stringify({date: date.value, finished: ids}));
     };
 
     button.addEventListener('click', onClick);
