@@ -1,0 +1,6 @@
+applications:
+- name: housekeeping
+  buildpack: staticfile_buildpack
+  path: dist
+  memory: 32M
+  disk_quota: 64M
