@@ -6,21 +6,25 @@ const initialize = () => {
     const today = new Date();
     const data = [
         {
+            id: 1,
             place: '洗面所',
             lastDate: '2020/3/20',
             cycle: 14
         },
         {
+            id: 2,
             place: 'キッチン',
             lastDate: '2020/4/15',
-            cycle: 21
+            cycle: 30
         },
         {
+            id: 3,
             place: 'トイレ',
             lastDate: '2020/4/19',
             cycle: 7
         },
         {
+            id: 4,
             place: '床',
             lastDate: '2020/5/2',
             cycle: 2
