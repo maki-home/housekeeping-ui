@@ -3,7 +3,6 @@ import './garbage.png';
 
 const initialize = () => {
     const date = document.getElementById('date');
-    console.log(date);
     const today = new Date();
     const data = [
         {
@@ -41,7 +40,15 @@ const initialize = () => {
     data.forEach(d => {
         const tr = document.createElement('tr');
         items.appendChild(tr);
-        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate}</td><td><input type="checkbox" name="finished"></td><td>${d.cycle}日</td><td><input type="checkbox" name="remove"></td>`;
+        let cycle;
+        if (d.cycle % 30 === 0) {
+            cycle = d.cycle / 30 + 'か月';
+        } else if (d.cycle % 7 === 0) {
+            cycle = d.cycle / 7 + '週間';
+        } else {
+            cycle = d.cycle + '日間';
+        }
+        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate}</td><td><input type="checkbox" name="finished"></td><td>${cycle}</td><td><input type="checkbox" name="remove"></td>`;
     });
 
     const button = document.getElementById('register');
