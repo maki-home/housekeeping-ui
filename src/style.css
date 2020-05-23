@@ -60,6 +60,11 @@ table tr:nth-child(2n) {
     background-color: #e0ffff;
 }
 
+div#button_wrapper{
+width: 500px;
+margin: 0 auto;
+}
+
 
 a{
     display: inline-block;
@@ -70,7 +75,15 @@ a{
     border:2px solid gray;
     padding: 5px 10px;
     border-radius: 10px;
-    margin-left: 200px;
+    margin: 20px;
     background-color: #40e0d0;
 }
 
+a#register{
+    float: left;
+}
+
+a#remove{
+    float: left;
+    background-color: #f3e24d;
+}

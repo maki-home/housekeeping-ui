@@ -52,11 +52,11 @@ const initialize = () => {
         } else {
             cycle = d.cycle + '日間';
         }
-        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate}</td><td><input type="checkbox" name="finished" data-id="${d.id}"></td><td>${cycle}</td><td><input type="checkbox" name="remove"></td>`;
+        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate}</td><td><input type="checkbox" name="finished" data-id="${d.id}"></td><td>${cycle}</td><td><input type="checkbox" name="remove" data-id="${d.id}"s></td>`;
     });
 
-    const button = document.getElementById('register');
-    const onClick = () => {
+    const registerButton = document.getElementById('register');
+    const onClickRegister = () => {
         const checked = document.querySelectorAll("input[name=finished]:checked");
         const ids = [];
         checked.forEach(c => {
@@ -65,7 +65,19 @@ const initialize = () => {
         alert(JSON.stringify({date: date.value, finished: ids}));
     };
 
-    button.addEventListener('click', onClick);
+    registerButton.addEventListener('click', onClickRegister);
+
+    const removeButton= document.getElementById('remove');
+    const onClickRemove =(event) => {
+        const checked= document.querySelectorAll("input[name=remove]:checked");
+        const ids = [];
+        checked.forEach(c => {
+            ids.push(c.dataset.id);
+        });
+        alert(JSON.stringify({ remove: ids}));
+    };
+    removeButton.addEventListener('click', onClickRemove);
+
 };
 
 
