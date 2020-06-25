@@ -1,46 +1,12 @@
 import './style.css';
 import './garbage.png';
 
-const initialize = () => {
-    const date = document.getElementById('date');
-    const today = new Date();
-    const data = [
-        {
-            id: 1,
-            place: '洗面所',
-            lastDate: '2020/3/20',
-            cycle: 14
-        },
-        {
-            id: 2,
-            place: 'キッチン',
-            lastDate: '2020/4/15',
-            cycle: 30
-        },
-        {
-            id: 3,
-            place: 'トイレ',
-            lastDate: '2020/4/19',
-            cycle: 7
-        },
-        {
-            id: 4,
-            place: '床',
-            lastDate: '2020/5/2',
-            cycle: 2
-        }
-    ];
+const BASE_URL = 'https://housekeeping-api.apps.pcfone.io';
 
-    for (let i = 0; i < 8; i++) {
-        const d = new Date(today.getTime() + (i - 7) * 24 * 60 * 60 * 1000 /* + (i - 7)日 */);
-        const option = document.createElement('option');
-        option.text = d.toLocaleDateString();
-        if (d.getTime() === today.getTime()) {
-            option.selected = true;
-        }
-        date.appendChild(option);
-    }
+const loadData = async () => {
+    const data = await fetch(`${BASE_URL}/missions`).then(x => x.json());
     const items = document.getElementById('items');
+    items.innerHTML = '';
     data.forEach(d => {
         const tr = document.createElement('tr');
         items.appendChild(tr);
@@ -52,32 +18,61 @@ const initialize = () => {
         } else {
             cycle = d.cycle + '日間';
         }
-        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate}</td><td><input type="checkbox" name="finished" data-id="${d.id}"></td><td>${cycle}</td><td><input type="checkbox" name="remove" data-id="${d.id}"s></td>`;
+        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate || '未登録'}</td><td><input type="checkbox" name="finished" data-id="${d.id}"></td><td>${cycle}</td><td><input type="checkbox" name="remove" data-id="${d.id}"s></td>`;
     });
+};
+
+const initialize = async () => {
+    const date = document.getElementById('date');
+    const today = new Date();
+
+    for (let i = 0; i < 8; i++) {
+        const d = new Date(today.getTime() + (i - 7) * 24 * 60 * 60 * 1000 /* + (i - 7)日 */);
+        const option = document.createElement('option');
+        option.text = d.toISOString().substring(0, 10);
+        if (d.getTime() === today.getTime()) {
+            option.selected = true;
+        }
+        date.appendChild(option);
+    }
 
     const registerButton = document.getElementById('register');
-    const onClickRegister = () => {
+    const onClickRegister = async () => {
         const checked = document.querySelectorAll("input[name=finished]:checked");
         const ids = [];
         checked.forEach(c => {
-            ids.push(c.dataset.id);
+            ids.push(Number(c.dataset.id));
         });
-        alert(JSON.stringify({date: date.value, finished: ids}));
+        await fetch(`${BASE_URL}/missions`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({date: date.value, finished: ids})
+        });
+        await loadData();
     };
 
     registerButton.addEventListener('click', onClickRegister);
 
-    const removeButton= document.getElementById('remove');
-    const onClickRemove =(event) => {
-        const checked= document.querySelectorAll("input[name=remove]:checked");
+    const removeButton = document.getElementById('remove');
+    const onClickRemove = async (event) => {
+        const checked = document.querySelectorAll("input[name=remove]:checked");
         const ids = [];
         checked.forEach(c => {
-            ids.push(c.dataset.id);
+            ids.push(Number(c.dataset.id));
         });
-        alert(JSON.stringify({ remove: ids}));
+        await fetch(`${BASE_URL}/missions`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({remove: ids})
+        });
+        await loadData();
     };
     removeButton.addEventListener('click', onClickRemove);
-
+    await loadData();
 };
 
 
