@@ -4,3 +4,5 @@ applications:
   path: dist
   memory: 32M
   disk_quota: 64M
+  services:
+  - syslog-to-datadog # cf create-user-provided-service syslog-to-datadog -l syslog://example.com:514  
