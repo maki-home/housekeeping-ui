@@ -1,7 +1,7 @@
 import './style.css';
 import './garbage.png';
 
-const BASE_URL = 'https://housekeeping-api.apps.pcfone.io';
+const BASE_URL = 'https://housekeeping-api.dev.ik.am';
 
 const loadData = async () => {
     const data = await fetch(`${BASE_URL}/missions`).then(x => x.json());
@@ -29,7 +29,9 @@ const initialize = async () => {
     for (let i = 0; i < 8; i++) {
         const d = new Date(today.getTime() + (i - 7) * 24 * 60 * 60 * 1000 /* + (i - 7)日 */);
         const option = document.createElement('option');
-        option.text = d.toISOString().substring(0, 10);
+        const isoString = d.toISOString();
+        option.text = isoString.substring(5, 10).replace('-', '/');
+        option.value = isoString.substring(0, 10);
         if (d.getTime() === today.getTime()) {
             option.selected = true;
         }
