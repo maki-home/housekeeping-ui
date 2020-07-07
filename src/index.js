@@ -18,7 +18,8 @@ const loadData = async () => {
         } else {
             cycle = d.cycle + '日間';
         }
-        tr.innerHTML = `<td>${d.place}</td><td>${d.lastDate || '未登録'}</td><td><input type="checkbox" name="finished" data-id="${d.id}"></td><td>${cycle}</td><td><input type="checkbox" name="remove" data-id="${d.id}"s></td>`;
+        const lastDate = d.lastDate ? d.lastDate.substring(2).replace(/-/g, '/') : '未登録';
+        tr.innerHTML = `<td>${d.place}</td><td>${lastDate}</td><td><input type="checkbox" name="finished" data-id="${d.id}"></td><td>${cycle}</td><td><input type="checkbox" name="remove" data-id="${d.id}"s></td>`;
     });
 };
 
